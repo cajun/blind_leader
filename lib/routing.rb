@@ -12,6 +12,7 @@ class Routing
     end
     
     define_method "#{verb.downcase}".to_sym do |route,&block|
+      block = Routing::Route.new &block 
       verb_routes = instance_variable_get var_name 
       verb_routes = instance_variable_set var_name, {} if verb_routes.nil?
       raise DuplicateRoute.new route if verb_routes[route]
@@ -24,3 +25,10 @@ class Routing
   end
 
 end
+
+
+class Routing::Route < Proc
+end
+
+
+

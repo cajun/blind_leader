@@ -3,6 +3,7 @@ GEM
   specs:
     ansi (1.4.1)
     minitest (2.11.0)
+    rake (0.9.2.2)
     turn (0.8.3)
       ansi
 
@@ -11,4 +12,5 @@ PLATFORMS
 
 DEPENDENCIES
   minitest
+  rake
   turn

@@ -1,6 +1,6 @@
 class Routing
   DuplicateRoute = Class.new Exception
-  VERBS = %w( GET POST PUT )
+  VERBS = %w( GET POST PUT DELETE )
 
   VERBS.each do |verb|
     var_name = "@#{verb.downcase}".to_sym
@@ -20,7 +20,7 @@ class Routing
   end
 
   def routes
-    get_routes.merge(post_routes).merge(put_routes)
+    get_routes.merge(post_routes).merge(put_routes).merge(delete_routes)
   end
 
 end

@@ -1,5 +1,8 @@
 require File.expand_path( File.dirname(__FILE__)) + '/helper'
 
+class Routing::Route
+end
+
 describe Routing do
   
     describe 'methods' do
@@ -46,6 +49,12 @@ describe Routing do
       before do
         @routing = Routing.new
         @response = lambda {"Hello World!"}
+      end
+      
+      it 'works with a Route object' do
+        @routing.get '/', &@response
+        route = @routing.routes[:GET]['/']
+        assert_instance_of Routing::Route, route
       end
 
       it 'declares a SINGLE GET route' do

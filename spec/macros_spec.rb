@@ -1,5 +1,7 @@
 require File.expand_path( File.dirname(__FILE__)) + '/helper'
 
+module Routing::Macros
+end
 
 describe Routing::Macros do
     describe 'methods' do  

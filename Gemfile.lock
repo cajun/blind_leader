@@ -1,0 +1,14 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    ansi (1.4.1)
+    minitest (2.11.0)
+    turn (0.8.3)
+      ansi
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest
+  turn

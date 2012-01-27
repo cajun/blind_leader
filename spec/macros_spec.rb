@@ -1,6 +1,15 @@
 require File.expand_path( File.dirname(__FILE__)) + '/helper'
 
 module Routing::Macros
+  
+        #@routing.resource '/he-man', &@response
+  def resource route, &block
+    self.post(route, &block)
+    self.get((route + "/:id"), &block)
+    self.put((route + "/:id"), &block)
+    self.delete((route + "/:id"), &block)
+  end
+
 end
 
 describe Routing::Macros do
@@ -35,5 +44,22 @@ describe Routing::Macros do
           :DELETE => {'/he-man/:id' => @response}
         })
       end
+
+      ## I think this would be better
+      it 'should not truncate the first get' do
+        @routing.resource '/he-man', &@response
+
+        @routing.routes.must_equal({
+          :GET    => {
+            '/he-man' => @response,
+            '/he-man/:id' => @response
+          },
+          :POST   => {'/he-man'     => @response},
+          :PUT    => {'/he-man/:id' => @response},
+          :DELETE => {'/he-man/:id' => @response}
+        })
+      end
+
+
     end
 end

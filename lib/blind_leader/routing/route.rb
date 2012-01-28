@@ -1,10 +1,13 @@
 module BlindLeader
   class Routing::Route < Proc
-    attr_reader :klass, :get
+    attr_reader :klass, :get, :route, :action
 
     def initialize(route=nil, action=nil, &block)
-      @klass = block.call
-      @get = { route => action } if route && action
+      @block  = block
+      @klass  = block.call
+      @route  = route
+      @action = action
+      @get    = { route => action } if route && action
     end
 
     def post
@@ -14,6 +17,10 @@ module BlindLeader
     end
 
     def delete
+    end
+
+    def call
+      @action.call @klass
     end
 
   end

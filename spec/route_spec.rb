@@ -32,7 +32,7 @@ describe 'Route' do
       subject { BlindLeader::Routing::Route }
 
       before do
-        @response = lambda {"w00ts are king"}
+        @response    = lambda {"w00ts are king"}
         @double_down = lambda { |s| s*2 }
       end
 
@@ -54,6 +54,11 @@ describe 'Route' do
       it 'can evaluate a route' do
         route = subject.new( '/', @double_down) { 'wooden' }
         route.call.must_equal 'woodenwooden'
+      end
+
+      it 'can store a POST route' do
+        route = subject.new( :post, '/hahahaha', @response) { 'blargs' }
+        route.post.must_equal ({'/hahahaha' => @response })
       end
 
     end

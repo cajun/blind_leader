@@ -1,7 +1,8 @@
-
-.bundle/
-bin/
-vendor/
-
 *.swp
+*.gem
+.bundle
+Gemfile.lock
+pkg/*
 
+vendor
+bin

@@ -1,84 +1,85 @@
-require File.expand_path( File.dirname(__FILE__)) + '/helper'
+require 'helper'
 
-describe Routing do
+describe 'Routing' do
   
-    describe 'methods' do
+    describe 'Methods' do
+      subject { BlindLeader::Routing.new }
 
       it 'has "get_routes"' do
-        Routing.new.must_respond_to :get_routes
+        subject.must_respond_to :get_routes
       end
 
       it 'has "post_routes"' do
-        Routing.new.must_respond_to :post_routes
+        subject.must_respond_to :post_routes
       end
 
       it 'has "put_routes"' do
-        Routing.new.must_respond_to :put_routes
+        subject.must_respond_to :put_routes
       end
 
       it 'has "delete_routes"' do
-        Routing.new.must_respond_to :delete_routes
+        subject.must_respond_to :delete_routes
       end
 
       it 'has "get"' do
-        Routing.new.must_respond_to :get
+        subject.must_respond_to :get
       end
 
       it 'has "post"' do
-        Routing.new.must_respond_to :post
+        subject.must_respond_to :post
       end
       
       it 'has "put"' do
-        Routing.new.must_respond_to :put
+        subject.must_respond_to :put
       end
 
       it 'has "delete"' do
-        Routing.new.must_respond_to :delete
+        subject.must_respond_to :delete
       end
 
       it 'has "routes"' do
-        Routing.new.must_respond_to :routes
+        subject.must_respond_to :routes
       end
 
     end
     
-    describe "basic routing" do
+    describe "Basic::Routing" do
+      subject {BlindLeader::Routing.new}
       before do
-        @routing = Routing.new
         @response = lambda {"Hello World!"}
       end
       
       it 'works with a Route object' do
-        @routing.get '/', &@response
-        route = @routing.routes[:GET]['/']
-        assert_instance_of Routing::Route, route
+        subject.get '/', &@response
+        route = subject.routes[:GET]['/']
+        assert_instance_of BlindLeader::Routing::Route, route
       end
 
       it 'declares a SINGLE GET route' do
-        @routing.get '/', &@response
-        @routing.routes.must_equal ({ :GET => {'/' => @response } })
+        subject.get '/', &@response
+        subject.routes.must_equal ({ :GET => {'/' => @response } })
       end
 
       it 'declares a SINGLE POST route' do
-        @routing.post '/', &@response
-        @routing.routes.must_equal ({ :POST => {'/' => @response } })
+        subject.post '/', &@response
+        subject.routes.must_equal ({ :POST => {'/' => @response } })
       end
 
       it 'declares a SINGLE PUT route' do
-        @routing.put '/', &@response
-        @routing.routes.must_equal ({ :PUT => {'/' => @response } })
+        subject.put '/', &@response
+        subject.routes.must_equal ({ :PUT => {'/' => @response } })
       end
 
       it 'declares a SINGLE DELETE route' do
-        @routing.delete '/', &@response
-        @routing.routes.must_equal ({ :DELETE => {'/' => @response } })
+        subject.delete '/', &@response
+        subject.routes.must_equal ({ :DELETE => {'/' => @response } })
       end
 
       it 'declares a MULTIPLE routes' do
-        @routing.get '/', &@response
-        @routing.get '/supermane', &@response
+        subject.get '/', &@response
+        subject.get '/supermane', &@response
 
-        @routing.routes.must_equal({
+        subject.routes.must_equal({
           :GET => {
             '/'          => @response,
             '/supermane' => @response
@@ -87,22 +88,22 @@ describe Routing do
       end
       
       it 'should not have duplates GET routes' do
-        assert_raises Routing::DuplicateRoute do
-          @routing.get '/supermane' do
+        assert_raises BlindLeader::Routing::DuplicateRoute do
+          subject.get '/supermane' do
             @response
           end
-          @routing.get '/supermane' do
+          subject.get '/supermane' do
             @response
           end
         end  
       end
 
       it 'should not have duplates POST routes' do
-        assert_raises Routing::DuplicateRoute do
-          @routing.post '/batman' do
+        assert_raises BlindLeader::Routing::DuplicateRoute do
+          subject.post '/batman' do
             @response
           end
-          @routing.post '/batman' do
+          subject.post '/batman' do
             @response
           end
         end  
@@ -110,43 +111,43 @@ describe Routing do
 
 
       it 'should not have duplates PUT routes' do
-        assert_raises Routing::DuplicateRoute do
-          @routing.put '/spiderman' do
+        assert_raises BlindLeader::Routing::DuplicateRoute do
+          subject.put '/spiderman' do
             @response
           end
-          @routing.put '/spiderman' do
+          subject.put '/spiderman' do
             @response
           end
         end  
       end
 
       it 'should not have duplates DELETE routes' do
-        assert_raises Routing::DuplicateRoute do
-          @routing.delete '/nightcrawler' do
+        assert_raises BlindLeader::Routing::DuplicateRoute do
+          subject.delete '/nightcrawler' do
             @response
           end
-          @routing.delete '/nightcrawler' do
+          subject.delete '/nightcrawler' do
             @response
           end
         end  
       end
 
       it 'should be able to POST and GET on the same route' do
-        @routing.post '/supermane' , &@response
-        @routing.get  '/supermane' , &@response
+        subject.post '/supermane' , &@response
+        subject.get  '/supermane' , &@response
         
-        @routing.routes.must_equal({
+        subject.routes.must_equal({
           :GET  => {'/supermane' => @response},
           :POST => {'/supermane' => @response}
         })
       end
 
       it 'should be able to POST, PUT, and GET on the same route' do
-        @routing.post '/batman' , &@response
-        @routing.get  '/batman' , &@response
-        @routing.put  '/batman' , &@response
+        subject.post '/batman' , &@response
+        subject.get  '/batman' , &@response
+        subject.put  '/batman' , &@response
         
-        @routing.routes.must_equal({
+        subject.routes.must_equal({
           :GET  => {'/batman' => @response},
           :POST => {'/batman' => @response},
           :PUT  => {'/batman' => @response}
@@ -154,12 +155,12 @@ describe Routing do
       end
 
       it 'should be able to POST, PUT, DELETE, and GET on the same route' do
-        @routing.post    '/batman' , &@response
-        @routing.get     '/batman' , &@response
-        @routing.put     '/batman' , &@response
-        @routing.delete  '/batman' , &@response
+        subject.post    '/batman' , &@response
+        subject.get     '/batman' , &@response
+        subject.put     '/batman' , &@response
+        subject.delete  '/batman' , &@response
         
-        @routing.routes.must_equal({
+        subject.routes.must_equal({
           :GET    => {'/batman' => @response},
           :POST   => {'/batman' => @response},
           :PUT    => {'/batman' => @response},

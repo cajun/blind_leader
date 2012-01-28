@@ -1,3 +1,8 @@
+PATH
+  remote: .
+  specs:
+    blind_leader (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -11,6 +16,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  blind_leader!
   minitest
   rake
   turn

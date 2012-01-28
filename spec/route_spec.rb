@@ -28,4 +28,23 @@ describe 'Route' do
     end
     
     
+    describe 'Basic::Route' do
+      subject { BlindLeader::Routing::Route }
+      before do
+      end
+
+      ##Not sure if this is what you had in mind for klass
+      it 'klass should be a string' do
+        route = subject.new { "i am a string" }
+        route.klass.must_equal String
+      end
+
+      it 'klass should be a fixnum' do
+        route = subject.new { 42 }
+        route.klass.must_equal Fixnum
+      end
+
+    end
+
+
 end

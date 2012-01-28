@@ -33,9 +33,9 @@ describe 'Route' do
 
       before do
         @response = lambda {"w00ts are king"}
+        @double_down = lambda { |s| s*2 }
       end
 
-      ##Not sure if this is what you had in mind for klass
       it 'klass should be a string' do
         route = subject.new { "i am a string" }
         route.klass.must_be_instance_of String
@@ -50,8 +50,15 @@ describe 'Route' do
         route = subject.new( '/', @response) { 'blargs' }
         route.get.must_equal ({'/' => @response })
       end
+      
+      it 'can evaluate a route' do
+        route = subject.new( '/', @double_down) { 'wooden' }
+        route.call.must_equal 'woodenwooden'
+      end
 
     end
 
-
 end
+
+
+

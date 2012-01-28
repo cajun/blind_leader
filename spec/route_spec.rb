@@ -30,18 +30,25 @@ describe 'Route' do
     
     describe 'Basic::Route' do
       subject { BlindLeader::Routing::Route }
+
       before do
+        @response = lambda {"w00ts are king"}
       end
 
       ##Not sure if this is what you had in mind for klass
       it 'klass should be a string' do
         route = subject.new { "i am a string" }
-        route.klass.must_equal String
+        route.klass.must_be_instance_of String
       end
 
       it 'klass should be a fixnum' do
         route = subject.new { 42 }
-        route.klass.must_equal Fixnum
+        route.klass.must_be_instance_of Fixnum
+      end
+
+      it 'can store a route' do
+        route = subject.new( '/', @response) { 'blargs' }
+        route.get.must_equal ({'/' => @response })
       end
 
     end

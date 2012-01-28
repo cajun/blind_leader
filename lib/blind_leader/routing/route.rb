@@ -1,9 +1,11 @@
 module BlindLeader
   class Routing::Route < Proc
+    attr_reader :klass
 
-
-    def klass
+    def initialize &block
+      @klass = block.call
     end
+
 
     def get
     end

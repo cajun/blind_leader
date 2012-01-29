@@ -37,22 +37,22 @@ describe 'Route' do
       end
 
       it 'klass should be a string' do
-        route = subject.new { "i am a string" }
+        route = subject.new( :get, '/', @response ) { "i am a string" }
         route.klass.must_be_instance_of String
       end
 
       it 'klass should be a fixnum' do
-        route = subject.new { 42 }
+        route = subject.new( :get, '/', @response ) { 42 }
         route.klass.must_be_instance_of Fixnum
       end
 
       it 'can store a route' do
-        route = subject.new( '/', @response) { 'blargs' }
+        route = subject.new( :get, '/', @response) { 'blargs' }
         route.get.must_equal ({'/' => @response })
       end
       
       it 'can evaluate a route' do
-        route = subject.new( '/', @double_down) { 'wooden' }
+        route = subject.new( :get, '/', @double_down) { 'wooden' }
         route.call.must_equal 'woodenwooden'
       end
 

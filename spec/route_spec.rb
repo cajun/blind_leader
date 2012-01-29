@@ -60,6 +60,17 @@ describe 'Route' do
         route = subject.new( :post, '/hahahaha', @response) { 'blargs' }
         route.post.must_equal ({'/hahahaha' => @response })
       end
+      
+      it 'can store a PUT route' do
+        route = subject.new( :put, '/', @response) { 'blargs' }
+        route.post.must_equal ({'/down' => @response })
+      end
+
+      it 'can store a DELETE route' do
+        route = subject.new( :delete, '/', @response) { 'blargs' }
+        route.delete.must_equal ({'/' => @response })
+      end
+
 
     end
 

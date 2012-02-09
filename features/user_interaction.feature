@@ -1,33 +1,29 @@
 Feature: Develeper can name a route
-  As a codeer
+  As a pirate
   I want to name a route
-  So that I return a path
+  So that I return a path and booty
 
-    Scenario: Name a route
-    Given I a file named "w00ts_are_bad_a$$.rb" with:
+    Scenario: Name a route to X
+    Given arrg ruby file containing:
 
-      Route :name, /superheros, SuperHeros, {json: lambda {|x|x.to_json}, html: lambda{|x| x.to_html}}
-      Route :name, /superhero/:id, SuperHero, :json, :htmp, :pdf
-      
-      {
-        path, manager, responder
+      """
+      Route {
+        name:          :superheros   ,
+        url:           '/superheros' ,
+        verb_handler:  SuperHeros    ,
+        view_handler:  BatView
       }
 
-      <html>
-        <a href= <%= @routes[:name].path(id: model.id) /%> />
-      </html>
-
-      (class|module) SuperHeros
-        def get
-          @heros = SuperHeros.all
-        end
-      end
-
-      (class|module) SuperHero
-        def get id
-          @heros = SuperHeros.find id
-        end
-      end
-
-    When I add a route
-    Then I should have an array returned
+      Route {
+        name:          :the_one         ,
+        url:           '/superhero/:id' ,
+        verb_handler:  SuperHero        ,
+        view_handler:  SpiderView
+      }
+      """
+      
+    When I run this file
+    Then "R#routes" will have the following routes
+      | name       | url            | data klass | view klass |
+      | superheros | /superheros    | SuperHeros | BatView    |
+      | the_one    | /superhero/:id | SuperHero  | SpiderView |

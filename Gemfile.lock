@@ -6,8 +6,6 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    Rack (2.0.0)
-    ansi (1.4.1)
     builder (3.0.0)
     cucumber (1.1.4)
       builder (>= 2.1.2)
@@ -19,19 +17,22 @@ GEM
     gherkin (2.7.6)
       json (>= 1.4.6)
     json (1.6.5)
-    minitest (2.11.0)
     rake (0.9.2.2)
+    rspec (2.8.0)
+      rspec-core (~> 2.8.0)
+      rspec-expectations (~> 2.8.0)
+      rspec-mocks (~> 2.8.0)
+    rspec-core (2.8.0)
+    rspec-expectations (2.8.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.8.0)
     term-ansicolor (1.0.7)
-    turn (0.8.3)
-      ansi
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  Rack
   blind_leader!
   cucumber
-  minitest
   rake
-  turn
+  rspec

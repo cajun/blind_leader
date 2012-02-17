@@ -7,19 +7,19 @@ Feature: Develeper can name a route
     Given arrg ruby file containing:
 
       """
-      Route {
+      Route({
         name:          :superheros   ,
         url:           '/superheros' ,
         verb_handler:  SuperHeros    ,
         view_handler:  BatView
-      }
+      })
 
-      Route {
+      Route({
         name:          :the_one         ,
         url:           '/superhero/:id' ,
         verb_handler:  SuperHero        ,
         view_handler:  SpiderView
-      }
+      })
       """
       
     When I run this file

@@ -9,3 +9,5 @@ class Route
   def draw opts
   end
 end
+
+Redirect = Class.new Route

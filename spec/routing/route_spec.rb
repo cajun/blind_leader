@@ -1,10 +1,9 @@
 require 'helper'
 
-SuperHeros = Class.new
-BatView    = Class.new
 
 describe BlindLeader::Routing::Route do
   subject { BL::R::Route.instance }
+  before(:each) { subject.clean_routes! }
 
   let(:super_route) do
     {
@@ -17,6 +16,14 @@ describe BlindLeader::Routing::Route do
 
 
   it { should respond_to :draw }
+  it { should respond_to :routes }
+  it { should respond_to :clean_routes! }
   it { subject.draw(super_route).should be super_route }
+
+  context 'working with routes' do
+    before(:each) { subject.draw super_route }
+
+    its(:routes) { should eq [super_route] }
+  end
 end
 

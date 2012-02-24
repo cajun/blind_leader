@@ -6,8 +6,17 @@
 # needs to change.
 class BlindLeader::Routing::Route
   include Singleton
+  
+  attr_reader :routes
 
   def draw opts
+    @routes ||=[]
+    @routes << opts
     opts
   end
+
+  def clean_routes!
+    @routes = []
+  end
+
 end

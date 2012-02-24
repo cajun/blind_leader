@@ -7,7 +7,7 @@ Feature: Develeper can name a route
     Given arrg ruby file containing:
 
       """
-      router = Route.new
+      router = BlindLeader::Routing::Route.instance
       router.draw({
         name:          <name>         ,
         url:           '<url>'          ,
@@ -30,7 +30,7 @@ Feature: Develeper can name a route
     Given arrg ruby file containing:
 
       """
-      router = Route.new
+      router = BlindLeader::Routing::Route.instance
       router.draw({
         name:          :superheros   ,
         url:           '/superheros' ,
@@ -38,7 +38,7 @@ Feature: Develeper can name a route
         view_handler:  BatView
       })
 
-      router = Route.new
+      router = BL::R::Route.instance
       router.draw({
         name:          :the_one         ,
         url:           '/superhero/:id' ,

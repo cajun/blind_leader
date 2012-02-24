@@ -8,7 +8,7 @@ Feature: Develeper can create an alias
     Given arrg ruby file containing:
 
       """
-      router = Redirect.new
+      router = BlindLeader::Routing::Redirect.instance
       router.draw({
         name:  <name>,
         from:  '<from>',
@@ -31,14 +31,14 @@ Feature: Develeper can create an alias
     Given arrg ruby file containing:
 
       """
-      router = Redirect.new
+      router = BlindLeader::Routing::Redirect.instance
       router.draw({
         name:  :superheros,
         from:  '/superheros',
         to:    '/justice_league'
       })
 
-      router = Redirect.new
+      router = BL::R::Redirect.instance
       router.draw({
         name:  :superhero,
         from:  '/superhero/:id',

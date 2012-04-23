@@ -11,11 +11,9 @@ class BlindLeader::Runner
   #
   # @returns [Array]
   def call env
-    @env   = env
-    params = {}
     data   = verb_klass.call env
     body   = view_klass.call env, data
-    [ 200, [], [body] ]
+    [ 200, {'Content-Type' => 'text/html'}, [ env['REQUEST_METHOD'] ]]
   end
 
 

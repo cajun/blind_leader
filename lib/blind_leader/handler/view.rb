@@ -8,6 +8,9 @@ module BlindLeader::Handler
 
     def call env, data
       # Call the view response here
+      # call the requested verb here
+      # clean_type => real media type mapped to clean name
+      # e.g. send(env.media_type, data)
     end
 
     # A catch all if a requested method was passed in

@@ -8,6 +8,7 @@ module BlindLeader::Handler
 
     def call env
       # call the requested verb here
+      # e.g. send(env.http_verb, env.params)
     end
 
     # A catch all if a requested method was passed in

@@ -12,8 +12,21 @@ class BlindLeader::Runner
   # @returns [Array]
   def call env
     data   = verb_klass(env).call env
-    body   = view_klass(env).call env, data
-    [ 200, {'Content-Type' => 'text/html'}, [ env['REQUEST_METHOD'] ]]
+    hash   = default_hash.merge view_klass(env).call(env, data)
+    [ hash[:status], hash[:headers], hash[:body] ]
+  end
+
+
+  # Default settings for the hash
+  # cools stuff
+  #
+  # @returns [Hash]
+  def default_hash
+    {
+      status:   200,
+      headers:  'Content-Type: text/html',
+      body:     ['Chunky Bacon']
+    }
   end
 
 

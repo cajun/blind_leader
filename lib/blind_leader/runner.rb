@@ -4,15 +4,15 @@
 # is done the verb handle will be called with
 # it's results being passed into the view class
 # method. The view class is expected to return
-# the body of the the response
+# the body of the response
 class BlindLeader::Runner
 
-  # Make the running Rack compatiable
+  # Make the running Rack compatible
   #
   # @returns [Array]
   def call env
-    data   = verb_klass.call env
-    body   = view_klass.call env, data
+    data   = verb_klass(env).call env
+    body   = view_klass(env).call env, data
     [ 200, {'Content-Type' => 'text/html'}, [ env['REQUEST_METHOD'] ]]
   end
 
@@ -29,9 +29,9 @@ class BlindLeader::Runner
   # Verb klass for this route
   #
   # @returns [BlindLeader::Handler::Verb]
-  def verb_klass
+  def verb_klass env
     klass = BlindLeader::Handler::Verb.new
-    klass.extend routes.verb_module @env
+    klass.extend routes.verb_module env
     klass
   end
 
@@ -39,9 +39,9 @@ class BlindLeader::Runner
   # View klass for this route
   #
   # @returns [BlindLeader::Handler::View]
-  def view_klass
+  def view_klass env
     klass = BlindLeader::Handler::View.new
-    klass.extend routes.view_module @env
+    klass.extend routes.view_module env
     klass
   end
 

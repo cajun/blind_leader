@@ -7,6 +7,7 @@ module BlindLeader::Handler
     NotImplemented = Class.new Exception
 
     def call env
+      send env['REQUEST_METHOD']
       # call the requested verb here
       # e.g. send(env.http_verb, env.params)
     end

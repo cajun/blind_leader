@@ -17,7 +17,14 @@ module BlindLeader::Routing
     route.clean_routes!
     redirect.clean_routes!
   end
+
+  def verb_module route
+    # return verb module for the route
+  end
+
+  def view_module route
+    # return view module for the route
+  end
 end
 
 BlindLeader::R = BlindLeader::Routing
-

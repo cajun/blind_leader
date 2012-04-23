@@ -6,7 +6,7 @@
 # needs to change.
 class BlindLeader::Routing::Route
   include Singleton
-  
+
   attr_reader :routes
 
   def draw opts

@@ -5,14 +5,16 @@
 # it's results being passed into the view class
 # method. The view class is expected to return
 # the body of the response
-class BlindLeader::Runner
+class BlindLeader::Application
 
   # Make the running Rack compatible
   #
-  # @returns [Array]
+  # @returns [Rack Array]
   def call env
-    data   = verb_klass(env).call env
-    hash   = default_hash.merge view_klass(env).call(env, data)
+    verb_data = verb_klass(env).call env
+    view_hash = view_klass(env).call env, verb_data
+    hash      = default_hash.merge view_hash
+
     [ hash[:status], hash[:headers], hash[:body] ]
   end
 
@@ -41,21 +43,17 @@ class BlindLeader::Runner
 
   # Verb klass for this route
   #
-  # @returns [BlindLeader::Handler::Verb]
+  # @returns [Module Extended Object]
   def verb_klass env
-    klass = BlindLeader::Handler::Verb.new
-    klass.extend routes.verb_module env
-    klass
+    Object.new.extend routes.verb_module(env)
   end
 
 
   # View klass for this route
   #
-  # @returns [BlindLeader::Handler::View]
+  # @returns [Module Extended Object]
   def view_klass env
-    klass = BlindLeader::Handler::View.new
-    klass.extend routes.view_module env
-    klass
+    Object.new.extend routes.view_module(env)
   end
 
 end

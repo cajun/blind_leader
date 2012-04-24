@@ -5,4 +5,4 @@ use Rack::ShowExceptions
 use Rack::Lint
 use Rack::Static, :urls => ["/static"]
 
-run BL::Runner.new
+run BlindLeader::Application.new

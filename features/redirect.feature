@@ -15,11 +15,11 @@ Feature: Develeper can create an alias
         to:    '<to>'
       })
       """
-      
+
     When I run this file
     Then I should see the following routes
       | name    | from   | to   |
-      | <name>  | <from> | <to> | 
+      | <name>  | <from> | <to> |
 
     Examples:
       | name        | from           | to              |

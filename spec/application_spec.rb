@@ -1,6 +1,6 @@
 require 'helper'
 
-describe BlindLeader::Runner do
+describe BlindLeader::Application do
 
   it { should respond_to :call }
 end

@@ -1,5 +1,5 @@
 @wip
-Feature: Develeper can create an alias
+Feature: Developer can create an alias
   As a pirate
   I want to have some aliases
   So that I return a path (and booty) and get another path
@@ -10,8 +10,8 @@ Feature: Develeper can create an alias
       """
       router = BlindLeader::Routing::Redirect.instance
       router.draw({
-        name:  <name>,
-        from:  '<from>',
+        name:  <name>   ,
+        from:  '<from>' ,
         to:    '<to>'
       })
       """
@@ -33,15 +33,15 @@ Feature: Develeper can create an alias
       """
       router = BlindLeader::Routing::Redirect.instance
       router.draw({
-        name:  :superheros,
-        from:  '/superheros',
+        name:  :superheros   ,
+        from:  '/superheros' ,
         to:    '/justice_league'
       })
 
       router = BL::R::Redirect.instance
       router.draw({
-        name:  :superhero,
-        from:  '/superhero/:id',
+        name:  :superhero       ,
+        from:  '/superhero/:id' ,
         to:    '/batman?OID=:id'
       })
 

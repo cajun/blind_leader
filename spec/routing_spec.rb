@@ -10,7 +10,7 @@ describe BlindLeader::Routing do
   it { should respond_to :clean_routes! }
   it { should respond_to :route }
   it { should respond_to :redirect }
-  
+
   context 'routes' do
     let(:super_route) do
       {
@@ -21,8 +21,9 @@ describe BlindLeader::Routing do
       }
     end
 
+    let(:route) { BL::R::Route.instance }
+
     before(:each) do
-      route = BL::R::Route.instance
       route.draw super_route
     end
 
@@ -38,11 +39,35 @@ describe BlindLeader::Routing do
       }
     end
 
+    let(:route) { BL::R::Redirect.instance }
+
     before(:each) do
-      route = BL::R::Redirect.instance
       route.draw super_redirect
     end
 
     its(:routes) { should eq [super_redirect] }
   end
+
+  context 'lookup' do
+    let(:super_route) do
+      {
+        name:          :superheros   ,
+        url:           '/superheros' ,
+        verb_handler:  SuperHeros    ,
+        view_handler:  BatView
+      }
+    end
+
+    let(:route) { BL::R::Route.instance }
+
+    before(:each) do
+      route.draw super_route
+    end
+
+    it 'should find the super route' do
+      route.lookup
+    end
+  end
+
+
 end

@@ -11,8 +11,8 @@ class BlindLeader::Application
   #
   # @returns [Rack Array]
   def call env
-    verb_data = verb_klass(env).call env
-    view_hash = view_klass(env).call env, verb_data
+    verb_data = verb_klass(env).send env['REQUEST_METHOD']
+    view_hash = view_klass(env).send env['CONTENT_TYPE'], verb_data
     hash      = default_hash.merge view_hash
 
     [ hash[:status], hash[:headers], hash[:body] ]
@@ -45,7 +45,7 @@ class BlindLeader::Application
   #
   # @returns [Module Extended Object]
   def verb_klass env
-    Object.new.extend routes.verb_module(env)
+    BasicObject.new.extend routes.verb_module(env)
   end
 
 
@@ -53,7 +53,7 @@ class BlindLeader::Application
   #
   # @returns [Module Extended Object]
   def view_klass env
-    Object.new.extend routes.view_module(env)
+    BasicObject.new.extend routes.view_module(env)
   end
 
 end
